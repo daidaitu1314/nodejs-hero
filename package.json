@@ -1,0 +1,25 @@
+{
+  "name": "nodejs-hero",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daidaitu1314/nodejs-hero.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daidaitu1314/nodejs-hero/issues"
+  },
+  "homepage": "https://github.com/daidaitu1314/nodejs-hero#readme",
+  "dependencies": {
+    "art-template": "^4.10.2",
+    "bootstrap": "^3.3.7",
+    "formidable": "^1.1.1",
+    "jquery": "^3.2.1"
+  }
+}
