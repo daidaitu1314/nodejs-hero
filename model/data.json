@@ -1,0 +1,32 @@
+[
+  {
+    "name": "OK1",
+    "gender": "女",
+    "id": 1,
+    "avatar": "\\img\\108.jpg"
+  },
+  {
+    "name": "123",
+    "gender": "女",
+    "id": 2,
+    "avatar": "\\img\\118.jpg"
+  },
+  {
+    "name": "erha",
+    "gender": "男",
+    "id": 3,
+    "avatar": "\\img\\123.jpg"
+  },
+  {
+    "name": "二哈",
+    "gender": "男",
+    "id": 4,
+    "avatar": "\\img\\130.jpg"
+  },
+  {
+    "name": "二货",
+    "gender": "男",
+    "id": 5,
+    "avatar": "\\img\\131.jpg"
+  }
+]

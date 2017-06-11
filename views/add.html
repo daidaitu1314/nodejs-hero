@@ -39,6 +39,7 @@
         <label for="exampleInputFile">英雄图片</label>
         <input type="file" id="avatar" name="avatar">
         <p class="help-block">请上传英雄图片.</p>
+        <img src="" id="preview_img">
       </div>
       <button type="submit" class="btn btn-success">点击保存</button>
     </form>
@@ -65,6 +66,18 @@
             }
           }
         });
+      });
+
+      var freader = new FileReader();
+      freader.onload = function (e) {
+        $('#preview_img').attr('src', e.target.result);
+      }
+      // 监听 file 控件的 change 事件，如果选中的文件个数不为0，则使用 FileReader 对图片进行预览
+      $('#avatar').on('change', function (e) {
+        if (e.target.files.length <= 0) {
+          return;
+        }
+        freader.readAsDataURL(e.target.files[0]);
       });
     });
   </script>

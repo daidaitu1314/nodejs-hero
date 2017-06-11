@@ -9,39 +9,41 @@
     .hero-list img {
       width: 50px;
     }
-
   </style>
 </head>
 
 <body>
   <header>
     <div class="page-header container">
-      <h1>王者荣耀 <small>英雄管理器</small></h1>
+      <h1><a href="/">王者荣耀</a> <small>英雄管理器</small></h1>
     </div>
   </header>
   <div class="container hero-list">
-    <form>
+    <form id="form" method="post" action="/updateHero">
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">英雄名称</label>
         <div class="col-sm-10">
-          <input type="text" name="name" class="form-control" id="inputEmail3" placeholder="Email" value="李白">
+          <input type="text" name="name" class="form-control" id="name" placeholder="英雄名称" value="{{hero.name}}">
         </div>
       </div>
       <div class="form-group">
         <label for="inputPassword3" class="col-sm-2 control-label">性别</label>
         <div class="col-sm-10">
           <label class="radio-inline">
-            <input type="radio" value="m" name="gender" checked id="inlineRadio1" value="option1"> 男
+            <input type="radio" name="gender" {{hero.gender ==='男'?'checked':''}} value="男"> 男
           </label>
           <label class="radio-inline">
-            <input type="radio" value="f" name="gender" id="inlineRadio2" value="option2"> 女
+            <input type="radio" name="gender" {{hero.gender ==='女'?'checked':''}} value="女"> 女
           </label>
         </div>
       </div>
       <div class="form-group">
         <label for="inputPassword3" class="col-sm-2 control-label">头像</label>
         <div class="col-sm-10">
-          <input type="file" name="avatar" id="exampleInputFile">
+          <input type="file" id="avatar">
+          <input type="hidden" name="id" value="{{hero.id}}" />
+          <input type="hidden" name="avatar" value="{{hero.avatar}}" id="hiddenAvatar" />
+          <img src="{{hero.avatar}}" alt="" id="preview_img">
         </div>
       </div>
       <div class="form-group">
@@ -52,7 +54,34 @@
     </form>
   </div>
   <script src="/node_modules/jquery/dist/jquery.js"></script>
+
+  <script>
+    $(function () {
+      // 文件选择框的 change 事件
+      $('#avatar').on('change', function (e) {
+        // 如果没有选择文件，则退出
+        if (e.target.files.length <= 0) {
+          return;
+        }
+        var fd = new FormData();
+        fd.append('avatar', e.target.files[0]);
+        console.log('OK');
+        $.ajax({
+          url: 'uploadPreviewImage',
+          type: 'post',
+          data: fd,
+          dataType: 'json',
+          processData: false,
+          contentType: false,
+          success: function (result) {
+            console.log(result);
+            $('#hiddenAvatar').val(result.previewImagePath);
+            $('#preview_img').attr('src', result.previewImagePath);
+          }
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>
-
