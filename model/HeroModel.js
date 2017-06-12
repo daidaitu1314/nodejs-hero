@@ -60,5 +60,18 @@ module.exports = {
         }
       });
     });
+  },
+  deleteHeroById(id, callback) { // 根据id删除英雄信息
+    getAll(function (err, heros) {
+      if (err) return callback(err);
+      // 找到id相同的那个英雄
+      heros.some((item, i) => {
+        if (item.id === parseInt(id)) {
+          heros.splice(i, 1);
+          writeDataToFile(heros, callback);
+          return true;
+        }
+      });
+    });
   }
 }

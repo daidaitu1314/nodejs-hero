@@ -94,5 +94,24 @@ module.exports = {
         }
       });
     })
+  },
+  deleteHero(req, res) { // 根据英雄Id删除英雄数据
+    heroModel.deleteHeroById(req.query.id, function (err, result) {
+      if (err) throw err;
+      if (result) {
+        // 
+        /*res.writeHeader(302, {
+          'Location': '/'
+        });
+        res.end();*/
+        heroModel.getAllHeros(function (err, heros) {
+          if (err) throw err;
+          res.json({
+            err_code: 0,
+            heros: heros
+          });
+        });
+      }
+    });
   }
 }

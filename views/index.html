@@ -38,13 +38,50 @@
           <td>
             <a href="/showinfo?id={{$value.id}}">查看</a>
             <a href="/edithero?id={{$value.id}}">编辑</a>
-            <a href="">删除</a>
+            <!--同步删除英雄-->
+            <a href="/deleHero?id={{$value.id}}" class="del">删除</a>
           </td>
         </tr>
         {{/each}}
       </tbody>
     </table>
   </div>
+  <script type="text/template" id="tmpl">
+    <% for(var i=0; i<heros.length; i++) { %>
+      <tr>
+        <td><%= heros[i].id %></td>
+        <td><%= heros[i].name %></td>
+        <td><%= heros[i].gender %></td>
+        <td><img src="<%= heros[i].avatar %>" alt=""></td>
+        <td>
+          <a href="/showinfo?id=<%= heros[i].id %>">查看</a>
+          <a href="/edithero?id=<%= heros[i].id %>">编辑</a>
+          <!--同步删除英雄-->
+          <a href="/deleHero?id=<%= heros[i].id %>" class="del">删除</a>
+        </td>
+      </tr>
+      <% } %>
+  </script>
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/node_modules/art-template/lib/template-web.js"></script>
+  <script>
+    // 点击异步删除英雄数据，使用 on 代理的方式，来绑定点击事件
+    $('body').on('click', '.del', function (e) {
+      e.preventDefault();
+      $.ajax({
+        url: $(this).attr('href'),
+        type: 'get',
+        dataType: 'json',
+        success: function (result) { // 指定 Ajax 请求的异步回调函数
+          console.log(result);
+          // 在客户端使用art-template重新渲染HTML数据
+          var html = template('tmpl', {heros:result.heros});
+          // 将渲染的HTML数据，渲染到页面上
+          $('tbody').html(html);
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>

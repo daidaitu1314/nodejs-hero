@@ -24,6 +24,8 @@ module.exports = function (req, res) {
     handler.uploadPreviewImage(req, res);
   } else if (method === 'post' && urlPath === '/updateHero') { // 更新英雄信息
     handler.updateHero(req, res);
+  } else if (method === 'get' && urlPath === '/deleHero') { // 根据Id删除英雄
+    handler.deleteHero(req, res);
   } else if (urlPath.indexOf('/img/') === 0 || urlPath.indexOf('/node_modules/') === 0) { // 请求静态资源
     fs.readFile(path.join(__dirname, '../', urlPath), function (err, data) {
       res.end(data);
